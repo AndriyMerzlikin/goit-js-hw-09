@@ -15,8 +15,9 @@ startBtn.addEventListener('click', onStartToChosenDate);
 
 function onStartToChosenDate() {
   const selectedDate = flatpickrInstance.selectedDates[0];
-
+  startBtn.disabled = true;
   let timerId = setInterval(() => {
+    startBtn.disabled = false;
     const remainingTime = selectedDate - new Date();
     if (remainingTime < 0) {
       Notiflix.Notify.failure('Please choose a date in the future');
