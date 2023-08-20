@@ -18,12 +18,14 @@ function createPromise(position, delay) {
 
 function onSubmitCreate(evt) {
   evt.preventDefault();
-  const delay = parseInt(document.querySelector('input[name="delay"]').value);
+  const firstDelay = parseInt(
+    document.querySelector('input[name="delay"]').value
+  );
   const step = parseInt(document.querySelector('input[name="step"]').value);
   const amount = parseInt(document.querySelector('input[name="amount"]').value);
   let arrOfPromises = [];
-  for (let i = 0; i < amount; i++) {
-    delay += i * step;
+  for (let i = 0; i < amount; i += 1) {
+    delay = firstDelay + i * step;
     arrOfPromises.push(createPromise(i, delay));
   }
   arrOfPromises.forEach(promise => {
