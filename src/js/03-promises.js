@@ -24,8 +24,9 @@ function onSubmitCreate(evt) {
   const step = parseInt(document.querySelector('input[name="step"]').value);
   const amount = parseInt(document.querySelector('input[name="amount"]').value);
   let arrOfPromises = [];
+  let delay = firstDelay;
   for (let i = 0; i < amount; i += 1) {
-    delay = firstDelay + i * step;
+    delay += i * step;
     arrOfPromises.push(createPromise(i, delay));
   }
   arrOfPromises.forEach(promise => {
