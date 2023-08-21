@@ -11,17 +11,31 @@ const elements = {
 
 const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
+
+startBtn.disabled = true;
+
+input.addEventListener('input', onInput);
 startBtn.addEventListener('click', onStartToChosenDate);
+
+function onInput() {
+  const selectedDate = flatpickrInstance.selectedDates[0];
+  const remainingTime = selectedDate - new Date();
+  if (remainingTime > 0) {
+    startBtn.disabled = false;
+  } else {
+    Notiflix.Notify.failure('Please choose a date in the future');
+  }
+}
 
 function onStartToChosenDate() {
   const selectedDate = flatpickrInstance.selectedDates[0];
   startBtn.disabled = true;
+  input.disabled = true;
   let timerId = setInterval(() => {
-    startBtn.disabled = false;
     const remainingTime = selectedDate - new Date();
     if (remainingTime < 0) {
-      Notiflix.Notify.failure('Please choose a date in the future');
       clearInterval(timerId);
+      input.disabled = false;
       return;
     }
     convertMs(remainingTime);
